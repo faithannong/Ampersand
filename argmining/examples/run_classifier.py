@@ -33,11 +33,11 @@ from torch.utils.data.distributed import DistributedSampler
 from tqdm import tqdm, trange
 from sklearn.metrics import classification_report
 
-from argmining.pytorch_pretrained_bert.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
-from argmining.pytorch_pretrained_bert.modeling import BertForSequenceClassification, BertConfig, WEIGHTS_NAME, \
+from pytorch_pretrained_bert.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
+from pytorch_pretrained_bert import BertForSequenceClassification, BertConfig, WEIGHTS_NAME, \
     CONFIG_NAME
-from argmining.pytorch_pretrained_bert.tokenization import BertTokenizer
-from argmining.pytorch_pretrained_bert.optimization import BertAdam, warmup_linear
+from pytorch_pretrained_bert.tokenization import BertTokenizer
+from pytorch_pretrained_bert.optimization import BertAdam, warmup_linear
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
                     datefmt='%m/%d/%Y %H:%M:%S',
@@ -629,7 +629,7 @@ def main():
         # model = BertForSequenceClassification.from_pretrained(args.bert_model, num_labels=num_labels)
         # WHY DO THEY DO THIS
         # MY TRAINED ONE
-        model_state_dict = torch.load('./data/output/pytorch_model.bin', map_location=torch.device('cpu'))
+        model_state_dict = torch.load('./models/pytorch_model.bin', map_location=torch.device('cpu'))
         model = BertForSequenceClassification.from_pretrained(args.bert_model, state_dict=model_state_dict,
                                                              num_labels=num_labels)
         # INTERMDEDIATE IMHO TRAINED ONE - oh this one doesn't work.... why?!
