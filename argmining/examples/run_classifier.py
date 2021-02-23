@@ -504,7 +504,7 @@ def main():
         if args.local_rank != -1:
             num_train_optimization_steps = num_train_optimization_steps // torch.distributed.get_world_size()
 
-    model_state_dict = torch.load('./models/pytorch_model.bin', map_location=torch.device('cpu'))
+    model_state_dict = torch.load('models/pytorch_model.bin', map_location=torch.device('cpu'))
     cache_dir = args.cache_dir if args.cache_dir else os.path.join(PYTORCH_PRETRAINED_BERT_CACHE,
                                                                    'distributed_{}'.format(args.local_rank))
     model = BertForSequenceClassification.from_pretrained(args.bert_model, state_dict=model_state_dict,
